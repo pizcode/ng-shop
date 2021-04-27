@@ -1,0 +1,18 @@
+.desc{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 200px;
+}
+img{
+    width: 100px;
+    height: 100px;
+}
+.link:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+}
+.card-header:hover{
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.150);
+    border-top: 0px;
+}

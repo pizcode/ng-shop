@@ -1,0 +1,19 @@
+<div class="card shadow">
+    <div class="card-content">
+        <div class="card-header">
+            <h5 class="card-title">
+                Product Details
+            </h5>
+        </div>
+        <div class="card-body">
+            <img [src]="show.image" class="cus-img lazy" alt="">
+            <div class="m-2 p-2">
+                <p>Product Name : <span class="text-muted" [innerHtml]="show.title"></span></p>
+                <p>Category : <span class="text-muted" [innerHtml]="show.category"></span></p>
+                <p>Product details : <span [innerHtml]="show.description"></span></p>
+                <p>Price : <span [innerHtml]="show.price | currency"></span></p>
+                <button (click)="addToCart(show.id)" class="btn btn-sm btn-dark">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="col-12 col-sm-6 shadow p-5 m-auto">
+    <p>login works!</p>
+    <!-- <p class="alert alert-dark" *ngIf="message.length!=0" [innerHtml]="message"></p> -->
+    <form [formGroup]="loginForms" (ngSubmit)="save(loginForms.value)">
+      <mat-form-field class="form-group w-100">
+        <mat-label>email</mat-label>
+        <input matInput type="email" required formControlName="email" class="w-100">
+        <mat-error *ngIf="loginForms.controls.email.hasError('email') && !loginForms.controls.email.hasError('required')">
+            Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="loginForms.controls.email.hasError('required')">
+            Email is required
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group w-100">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" required formControlName="password" class="w-100">
+        <mat-error *ngIf="loginForms.controls.password.hasError('required')">
+            password is required
+        </mat-error>
+    </mat-form-field>
+    <div class="form-group d-flex justify-content-between w-100">
+      <mat-checkbox>check me out</mat-checkbox>
+      <button type="submit" mat-raised-button color="accent">Login</button>
+    </div>
+    </form>
+</div>
+

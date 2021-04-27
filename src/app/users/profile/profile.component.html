@@ -1,0 +1,12 @@
+<div class="card shadow">
+    <div class="card-header">
+        <h5>My Profile</h5>
+    </div>
+    <div class="card-body">
+        <img class="img-thumbnail"  [src]="user.image" alt="user image"/> 
+        <div class="m-2 p-2 d-lg-inline-block">
+            <p>Name : <span [innerHtml]="user.name"></span></p> 
+            <p>Email : <span [innerHtml]="user.email"></span></p> 
+        </div>
+    </div>
+</div>

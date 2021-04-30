@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   }
   addToCart(id)
   {
-    // this.PS.addToCart(id);
+    this.PS.addToCart(id);
   }
 
 

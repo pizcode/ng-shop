@@ -7,11 +7,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" routerLink="/cart" routerLinkActive="active">Cart
           <span class="badge badge-info badge-pill" [innerHtml]="count"></span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" routerLink="/orders" routerLinkActive="active">Orders</a>
       </li>
@@ -21,7 +21,11 @@
     </ul>
     <div class="navbar-nav my-2 my-lg-0">
 
-      <button mat-button color="accent" class="btn-sm m-1" [matMenuTriggerFor]="menu">Menu</button>
+      <button mat-button color="accent" routerLink="/cart" routerLinkActive="active">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="badge badge-info badge-pill" [innerHtml]="count"></span>
+      </button>
+      <button mat-button color="accent" *ngIf="isLogin()" class="btn-sm m-1" [matMenuTriggerFor]="menu">Menu</button>
       <mat-menu #menu="matMenu" xPosition="before">
         <button mat-menu-item routerLink="/profile">
           <mat-icon>person</mat-icon> Profile

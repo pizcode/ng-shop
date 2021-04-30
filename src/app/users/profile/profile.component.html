@@ -3,10 +3,12 @@
         <h5>My Profile</h5>
     </div>
     <div class="card-body">
-        <img class="img-thumbnail"  [src]="user.image" alt="user image"/> 
+        <img class="img-thumbnail" [src]="user.image" alt="user image" />
         <div class="m-2 p-2 d-lg-inline-block">
-            <p>Name : <span [innerHtml]="user.name"></span></p> 
-            <p>Email : <span [innerHtml]="user.email"></span></p> 
+            <p>Name : <span [innerHtml]="user.first_name|titlecase"></span> 
+                <span [innerHtml]="user.last_name|titlecase"></span>
+            </p>
+            <p>Email : <span [innerHtml]="user.email"></span></p>
         </div>
     </div>
 </div>

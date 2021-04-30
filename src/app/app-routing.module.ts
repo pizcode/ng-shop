@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './shared/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CartComponent } from './products/cart/cart.component';
 import { ListComponent } from './products/list/list.component';

@@ -1,10 +1,10 @@
 <div class="card shadow">
     <div class="card-content">
-        <div class="card-header d-flex justify-content-between">
-            <h5 class="card-title">
-                My Cart
-            </h5>
-            <button (click)="remove()" class="btn btn-danger btn-sm">Clear Cart</button>
+        <div class="card-header align-items-center d-flex justify-content-between">
+            <h2 class="card-title align-items-center">
+                My Cart 
+            </h2>
+            <button (click)="remove(0)" mat-raised-button color="warn">Clear Cart</button>
         </div>
         <div class="card-body">
             <table class="table table-image">
@@ -26,32 +26,37 @@
                             <p [innerHtml]="cartItem.title"></p>
                         </td>
                         <td>
-                            <p [innerHtml]="cartItem.price"></p>
+                            <p [innerHtml]="cartItem.price|number|currency"></p>
                         </td>
-                        <td class="d-flex">
-                            <button class="btn btn-dark btn-sm" [disabled]="cartItem.quantity==1" 
-                            (click)="updateQty(cartItem.id,-1)">-</button>
+                        <td class="d-flex align-items-center">
+                            <button mat-mini-fab color="accent" [disabled]="cartItem.quantity==1"
+                                (click)="updateQty(cartItem.id,0)">
+                                <mat-icon>remove</mat-icon>
+                            </button>
                             <span class="p-3 m-1 border-darken-1 border" [innerHtml]="cartItem.quantity"></span>
-                            <button class="btn btn-sm btn-dark" [disabled]="cartItem.quantity==10" 
-                             (click)="updateQty(cartItem.id,+1)">+</button>
+                            <button mat-mini-fab color="accent" [disabled]="cartItem.quantity==10"
+                                (click)="updateQty(cartItem.id,1)">
+                                <mat-icon>add</mat-icon>
+                            </button>
                         </td>
-                        <td [innerHtml]="cartItem.quantity*cartItem.price|number"></td>
+                        <td [innerHtml]="cartItem.quantity*cartItem.price|number|currency"></td>
                         <td>
-                            <a (click)="remove(cartItem.id)" class="btn btn-danger btn-sm">
-                                &times;
-                            </a>
+                            <button mat-mini-fab color="warn" (click)="remove(cartItem.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                <h5>Total: <span class="price text-success" [innerHtml]="totalCount.total|currency"></span></h5>
+                <h3>Total: <strong class="price text-success" [innerHtml]="totalCount.total|currency"></strong></h3>
             </div>
         </div>
         <div class="card-footer border-top-0 d-flex justify-content-between">
             <button type="button" (click)="home()" mat-raised-button color="accent" data-dismiss="card">
-                <mat-icon>arrow_back</mat-icon>  Continue Shopping</button>
-            <button type="button" (click)="order()" class="btn btn-sm btn-success">Checkout</button>
+                <mat-icon>arrow_back</mat-icon> Continue Shopping
+            </button>
+            <button type="button" (click)="order()" mat-raised-button color="primary">Checkout</button>
         </div>
     </div>
 </div>

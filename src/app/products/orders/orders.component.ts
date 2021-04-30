@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/shared/api.service';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,19 +10,19 @@ import { ProductService } from '../product.service';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private PS:ProductService) { }
+  constructor(private PS: ProductService,private API:APIService) { }
 
-  ordersItem:any;
-  usersOrder:any;
-  orderStatus:any;
+  ordersItems: any;
+  orderStatus: any;
 
   ngOnInit(): void {
-    this.orders() 
+    this.orders()
   }
 
-  orders(){
-    this.ordersItem = this.PS.getOrders();
-    this.usersOrder = this.PS.getUserOrder();
-    this.orderStatus = !!this.ordersItem.length;
+  orders() {
+    this.API.get('/order').subscribe(value=>{
+        this.ordersItems = value['data'];
+        this.orderStatus = !!value['data'];
+    });
   }
 }

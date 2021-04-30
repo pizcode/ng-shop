@@ -8,6 +8,7 @@ import { MakeOrderComponent } from './make-order/make-order.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrdersComponent } from './orders/orders.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ComponentModule } from '../component/component.module';
 
 
 
@@ -23,9 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatButtonModule,
+    ComponentModule
   ],
-  exports:[MatButtonModule]
+  exports:[]
 })
 export class ProductsModule { }

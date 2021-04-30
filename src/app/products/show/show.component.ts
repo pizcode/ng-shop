@@ -23,7 +23,7 @@ export class ShowComponent implements OnInit {
   }
   addToCart(id)
   {
-    // this.PS.addToCart(id)
+    this.PS.addToCart(id)
   }
 
 }

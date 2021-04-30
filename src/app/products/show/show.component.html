@@ -1,9 +1,9 @@
 <div class="card shadow">
     <div class="card-content">
         <div class="card-header">
-            <h5 class="card-title">
+            <h2 class="card-title">
                 Product Details
-            </h5>
+            </h2>
         </div>
         <div class="card-body">
             <img [src]="show.image" class="cus-img lazy" alt="">
@@ -12,7 +12,7 @@
                 <p>Category : <span class="text-muted" [innerHtml]="show.category"></span></p>
                 <p>Product details : <span [innerHtml]="show.description"></span></p>
                 <p>Price : <span [innerHtml]="show.price | currency"></span></p>
-                <button (click)="addToCart(show.id)" class="btn btn-sm btn-dark">Add to Cart</button>
+                <button (click)="addToCart(show.id)" mat-raised-button color="accent">Add to Cart</button>
             </div>
         </div>
     </div>

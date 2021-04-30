@@ -9,6 +9,7 @@ import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { ComponentModule } from '../component/component.module';
 
 @NgModule({
   declarations: [
@@ -18,11 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     CommonModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatPseudoCheckboxModule,
+    ComponentModule,
     FormsModule,
     ReactiveFormsModule
   ]

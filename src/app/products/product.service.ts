@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertService } from '../alert/alert.service';
+import { APIService } from '../shared/api.service';
 import { Cart } from './cart/Cart';
 import { Product } from './Product';
 
@@ -10,86 +11,104 @@ import { Product } from './Product';
 })
 export class ProductService {
 
-  private url:string = "https://localhost/angular-app/api/product";
-  private products = [];
+  private productUrl: string = "https://localhost/angular-app/api/product";
+  private products: Product[] = [];
   private carts: Cart[] = [];
   private orders: Cart[] = [];
   private userOrder;
 
-  private count = new BehaviorSubject<number>(0);
+  private count = new BehaviorSubject<any>(0);
 
-  constructor(private AS:AlertService,private _https:HttpClient) {
+  constructor(
+    private AS: AlertService,
+    private _https: HttpClient,
+    private API: APIService
+  ) {
     // this.addToCart(3);
     // this.addToCart(1);
-   }
+    this.doCount();
+  }
 
-   get totalCount() {
+  get totalCount() {
     const total = this.carts.reduce((acc, item) => {
-      acc.total += item.quantity*item.price;
+      acc.total += item.quantity * item.price;
       return acc;
     }, {
-      total:0
+      total: 0
     });
     return total;
   }
 
-   getUserOrder()
-  {
+  // get totalCount(){
+
+  // }
+
+  getUserOrder() {
     return this.userOrder;
   }
 
-  getOrders()
-  {
+  getOrders() {
     return this.orders;
   }
 
-  makeOrder(data)
-  {
-    this.userOrder = data;
-    this.orders = this.carts;
-    this.carts = [];
-    this.AS.warn('Order placed successfully');
-    this.count.next(this.doCount);
+  // makeOrder(data) {
+  //   this.userOrder = data;
+  //   this.orders = this.carts;
+  //   this.carts = [];
+  //   this.AS.warn('Order placed successfully');
+  //   this.doCount();
+  // }
+
+  makeOrder(data) {
+    this.API.post('/order',data).subscribe(value=>{
+      this.AS.warn(value['message']);
+      this.doCount();
+    });
   }
 
-   get doCount(){
-     var count:number = 0;
-      this.carts.every(i=> {
-        count += i.quantity
-        return true;
-      })
-      return count; 
-   }
 
-   getCartCount(){
+
+  doCount() {
+    this.API.post('/carts/count').subscribe(value => {
+      return this.count.next(value['data']);
+    });
+  }
+
+  // get doCount() {
+  //   var count: number = 0;
+  //   this.carts.every(i => {
+  //     count += i.quantity
+  //     return true;
+  //   })
+  //   return count;
+  // }
+
+
+
+  getCartCount() {
     return this.count.asObservable();
   }
-  updateQuantity(id,qty)
-  {
-    this.carts.find(i=>i.id == id).quantity += qty;
-    this.count.next(this.doCount);
+
+  updateQuantity(id, qty) {
+    return this.API.put('/cart', id, { 'quantity': qty });
+  }
+  // updateQuantity(id, qty) {
+  //   this.carts.find(i => i.id == id).quantity += qty;
+  //   this.doCount();
+  // }
+
+  getProduct(id) {
+    return this._https.get(this.productUrl + '/' + id);
   }
 
-  getProduct(id){
-    return this._https.get(this.url+'/'+id);
+  removeFromCart(id = 0) {
+    return this.API.delete('/cart', id).subscribe(value => {
+      this.AS.warn(value['message']);
+      this.doCount();
+      return value;
+    });
   }
 
-  removeFromCart(id=0){
-
-    if(id==0){
-      this.carts.splice(0,this.carts.length);
-      this.AS.warn('All Items removed from cart');
-      this.count.next(this.doCount);
-      return true;
-    }
-    const requiredIndex = this.carts.findIndex(el => el.id === id);
-    if(requiredIndex === -1){
-      return false;
-    };
-    this.carts.splice(requiredIndex, 1);
-    this.AS.warn('Item removed from cart');
-    this.count.next(this.doCount);
-  }
 
   // addToCart(id){
   //   const data = this.getProduct(id)
@@ -102,15 +121,21 @@ export class ProductService {
   //     quantity:1
   //   });
   //   this.AS.warn('Item Added to cart');
-  //   this.count.next(this.doCount);
+  //   this.doCount();
   // }
 
-  getCartItems()
-  {
-    return this.carts;
+  addToCart(data) {
+    return this.API.post('/cart', { 'pid': data }).subscribe(value => {
+      this.AS.warn(value['message']);
+      this.doCount();
+    });
   }
 
-  getProducts(){
-    return this._https.get(this.url);
+  getCartItems() {
+    return this.API.get('/cart');
+  }
+
+  getProducts() {
+    return this.API.get('/product');
   }
 }

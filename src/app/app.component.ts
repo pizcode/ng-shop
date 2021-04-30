@@ -12,12 +12,14 @@ export class AppComponent {
   count:number=0;
 
   constructor (private PS:ProductService,private US:UserService) {
-   this.cartCounts();
+    if(this.isLogin()){
+      this.cartCounts();
+    }
   }
 
   cartCounts(){
     return this.PS.getCartCount().subscribe(i=>{
-      this.count = i;
+      this.count = i as number;
     })
   }
 

@@ -7,31 +7,30 @@
     <div class="card-body">
 
         <div *ngIf="orderStatus" class="table-responsive">
-            <div class="p-2 m-2">
-                <p>Address</p>
-                <p> {{ usersOrder.address | titlecase }}, {{ usersOrder.city | titlecase }},
-                    {{ usersOrder.state | titlecase }}, {{ usersOrder.zip }}. </p>
-            </div>
-            <table class="table table-striped table-borderless table-sm">
+
+            <table *ngFor="let Item of ordersItems;" class="table table-borderless">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Product</th>
-                        <th>Name</th>
-                        <th>quantity</th>
-                        <th>Price</th>
+                        <td class="p-2 m-2">
+                            <p>Address : {{ Item.address | titlecase }}, {{ Item.city | titlecase }},
+                                {{ Item.state | titlecase }}, {{ Item.zip }}. </p>
+                        </td>
+                        <td>
+                            <p>Date : {{ Item.created_at|date}}</p>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let Item of ordersItem">
-                        <td>{{ Item.id }}</td>
-                        <td><img [src]="Item.image" class=" img-thumbnail" style="width: 100px;height: 100px;"></td>
-                        <td>{{ Item.title }}</td>
-                        <td>{{ Item.quantity }}</td>
-                        <td>{{ Item.price }}</td>
-                    </tr>  
+                    <tr *ngFor="let It of Item.order_detail;">
+                        <td>{{ It.id }}</td>
+                        <td><img [src]="It.image" class=" img-thumbnail" style="width: 100px;height: 100px;"></td>
+                        <td>{{ It.title }}</td>
+                        <td>{{ It.quantity }}</td>
+                        <td>{{ It.price|currency}}</td>
+                    </tr>
                 </tbody>
             </table>
+
         </div>
         <div *ngIf="!orderStatus">
             You Have Not Order Any Product Yet!

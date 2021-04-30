@@ -1,6 +1,6 @@
 <div class="col-12 col-sm-6 shadow p-5 m-auto">
     <p>Register</p>
-    <form [formGroup]="registerForms" (ngSubmit)="save(registerForms.value);">
+    <form [formGroup]="registerForms" (ngSubmit)="save();">
         <mat-form-field class="form-group w-100">
             <mat-label>First Name</mat-label>
             <input matInput type="text" required formControlName="first_name" class="w-100">
@@ -17,7 +17,8 @@
         </mat-form-field>
         <div class="form-group w-100">
             <mat-label>Image</mat-label>
-            <input type="file" required formControlName="image" class="w-100">
+            <input type="file" (change)="onFileChange($event)" formControlName="image" class="w-100">
+            <img [src]="imageSrc" *ngIf="imageSrc" class="img-thumbnail" style="height: 300px; width:300px">
         </div>
         <mat-form-field class="form-group w-100">
             <mat-label>email</mat-label>
